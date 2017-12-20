@@ -859,11 +859,7 @@
 							{
 								"code": "data",
 								"type": "Object",
-								"desc": "服务器返回的数据"
-							}, {
-								"code": "statusCode",
-								"type": "Number",
-								"desc": "服务器响应应答码"
+								"desc": "分享成功返回的数据"
 							}
 						]
 					}, {
@@ -886,7 +882,7 @@
 						"desc": "暂无参数只用来标识此方法完成调用"
 					}
 				],
-				"expCode": "water.shareInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t\tconsole.log(res.statusCode);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+				"expCode": "water.shareInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
 			}
 		]
 	}, {
