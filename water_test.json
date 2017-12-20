@@ -1,0 +1,1862 @@
+[
+	{
+		"code": "base",
+		"name": "基础",
+		"detail": [
+			{
+				"code": "checkAppVersion",
+				"name": "检查App版本",
+				"interfaceName": "water.checkAppVersion(Object)",
+				"interfaceDesc": "检查最新版本信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "currentAppVersion",
+								"type": "String",
+								"desc": "当前APP版本号"
+							}, {
+								"code": "currentJsVersion",
+								"type": "String",
+								"desc": "当前JS版本号"
+							}, {
+								"code": "lastestAppVersion",
+								"type": "String",
+								"desc": "生产环境APP版本号"
+							}, {
+								"code": "lastestJsVersion",
+								"type": "String",
+								"desc": "生产环境JS版本号"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.checkAppVersion({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.currentAppVersion);\r\n\t\tconsole.log(res.currentJsVersion);\r\n\t\tconsole.log(res.lastestAppVersion);\r\n\t\tconsole.log(res.lastestJsVersion);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}, {
+				"code": "request",
+				"name": "发送数据请求JSON",
+				"interfaceName": "water.request(Object)",
+				"interfaceDesc": "可通过此接口发送GET或POST请求",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "url",
+								"type": "String",
+								"required": "是",
+								"desc": "接口地址"
+							}, {
+								"code": "data",
+								"type": "Object",
+								"required": "否",
+								"desc": "请求的参数"
+							}, {
+								"code": "header",
+								"type": "Object",
+								"required": "否",
+								"desc": "设置请求的header"
+							}, {
+								"code": "method",
+								"type": "String",
+								"required": "否",
+								"desc": "GET/POST默认值为GET"
+							}, {
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "Object",
+								"desc": "请求服务器返回的数据"
+							}, {
+								"code": "statusCode",
+								"type": "Number",
+								"desc": "请求服务器返回的HTTP状态码"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.request({\r\n\turl:'https://www.zjtachao.com/water/test',\r\n\tmethod:'POST',\r\n\tdata:{'code':'aaaa'},\r\n\theader:{'Cookie':'waterTOKEN=123456'},\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log('complete');\r\n\t}\r\n});"
+			}, {
+				"code": "uploadFile",
+				"name": "上传文件",
+				"interfaceName": "water.uploadFile(Object)",
+				"interfaceDesc": "将本地文件上传到的服务器，客户端发起一个POST请求",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "url",
+								"type": "String",
+								"required": "是",
+								"desc": "服务器请求的地址"
+							}, {
+								"code": "filePath",
+								"type": "String",
+								"required": "是",
+								"desc": "要上传的文件路径"
+							}, {
+								"code": "header",
+								"type": "Object",
+								"required": "否",
+								"desc": "HTTP请求的Header"
+							}, {
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "Object",
+								"desc": "请求服务器返回的数据"
+							}, {
+								"code": "statusCode",
+								"type": "Number",
+								"desc": "请求服务器返回的HTTP状态码"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.uploadFile({\r\n\turl:'https://www.zjtachao.com/water/test',\r\n\tfilePath:'/tmp/a.png',\r\n\theader:{'Cookie':'waterTOKEN=123456'},\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t}\r\n});"
+			}, {
+				"code": "getAppInfo",
+				"name": "获得应用信息",
+				"interfaceName": "water.getAppInfo(Object)",
+				"interfaceDesc": "获得应用信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "appCnName",
+								"type": "String",
+								"desc": "APP中文名"
+							}, {
+								"code": "appEnName",
+								"type": "String",
+								"desc": "APP英文名"
+							}, {
+								"code": "appVersion",
+								"type": "String",
+								"desc": "APP版本号"
+							}, {
+								"code": "appLogo",
+								"type": "String",
+								"desc": "应用logo的本地地址"
+							}, {
+								"code": "jsVersion",
+								"type": "String",
+								"desc": "JS版本号"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getAppInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.appCnName);\r\n\t\tconsole.log(res.appEnName);\r\n\t\tconsole.log(res.appVersion);\r\n\t\tconsole.log(res.appLogo);\r\n\t\tconsole.log(res.jsVersion);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}
+		]
+	}, {
+		"code": "user",
+		"name": "用户信息",
+		"detail": [
+			{
+				"code": "getUserInfo",
+				"name": "获得用户信息",
+				"interfaceName": "water.getUserInfo(Object)",
+				"interfaceDesc": "获得用户信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "userId",
+								"type": "Number",
+								"desc": "用户编号"
+							}, {
+								"code": "userCode",
+								"type": "String",
+								"desc": "用户编码"
+							}, {
+								"code": "userName",
+								"type": "String",
+								"desc": "用户昵称"
+							}, {
+								"code": "userImg",
+								"type": "String",
+								"desc": "用户头像"
+							}, {
+								"code": "userToken",
+								"type": "String",
+								"desc": "用户登录的token"
+							},{
+								"code": "userLoginTime",
+								"type": "Number",
+								"desc": "用户登录的时间戳"
+							},{
+								"code": "userLoginType",
+								"type": "String",
+								"desc": "用户登录的方式"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getUserInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.userId);\r\n\t\tconsole.log(res.userCode);\r\n\t\tconsole.log(res.userName);\r\n\t\tconsole.log(res.userImg);\r\n\t\tconsole.log(res.userToken);\r\n\t\tconsole.log(res.userLoginTime);\r\n\t\tconsole.log(res.userLoginType);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}
+		]
+	},{
+		"code": "device",
+		"name": "设备信息",
+		"detail": [
+			{
+				"code": "getLocationInfo",
+				"name": "获得位置信息",
+				"interfaceName": "water.getLocationInfo(Object)",
+				"interfaceDesc": "获得位置信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "latitude",
+								"type": "Double",
+								"desc": "纬度，范围为-90～90"
+							}, {
+								"code": "longitude",
+								"type": "Double",
+								"desc": "经度，范围为-180～180"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getLocationInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.latitude);\r\n\t\tconsole.log(res.longitude);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "getNetworkType",
+				"name": "获得网络信息",
+				"interfaceName": "water.getNetworkType(Object)",
+				"interfaceDesc": "获得网络信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "networkType",
+								"type": "String",
+								"desc": "wifi/2g/3g/4g/5g/unknown(未知)/none(无网络)"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getNetworkType({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.networkType);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "getDeviceInfo",
+				"name": "获得设备信息",
+				"interfaceName": "water.getDeviceInfo(Object)",
+				"interfaceDesc": "获得设备信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "osType",
+								"type": "String",
+								"desc": "Android/iOS/unknown(位置)"
+							},
+							{
+								"code": "osVersion",
+								"type": "String",
+								"desc": "操作系统版本号，例如：1.0.2"
+							},
+							{
+								"code": "screenHeight",
+								"type": "Number",
+								"desc": "屏幕的高，单位：像素，例如：1920"
+							},
+							{
+								"code": "screenWidth",
+								"type": "Number",
+								"desc": "屏幕的宽，单位：像素，例如：1080"
+							},
+							{
+								"code": "deviceId",
+								"type": "String",
+								"desc": "设备的唯一编号，Android获取IMEI，iOS获取IDFA"
+							},
+							{
+								"code": "waterId",
+								"type": "String",
+								"desc": "当前APP安装时生成的唯一编码"
+							},
+							{
+								"code": "brand",
+								"type": "String",
+								"desc": "手机品牌，例如：Apple"
+							},
+							{
+								"code": "model",
+								"type": "String",
+								"desc": "手机型号，例如：iPhone7 Plus"
+							}							
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getDeviceInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.osType);\r\n\t\tconsole.log(res.osVersion);\r\n\t\tconsole.log(res.screenHeight);\r\n\t\tconsole.log(res.screenWidth);\r\n\t\tconsole.log(res.deviceId);\r\n\t\tconsole.log(res.waterId);\r\n\t\tconsole.log(res.brand);\r\n\t\tconsole.log(res.model);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}
+		]
+	}, {
+		"code": "pay",
+		"name": "支付",
+		"detail": [
+			{
+				"code": "requestPayment",
+				"name": "发起支付信息",
+				"interfaceName": "water.requestPayment(Object)",
+				"interfaceDesc": "发起支付信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "payWay",
+								"type": "String",
+								"required": "是",
+								"desc": "支付的方式，支付宝：alipay 微信：wechat"
+							},
+							{
+								"code": "payCurrency",
+								"type": "String",
+								"required": "是",
+								"desc": "支付的币种，暂时只支持人民币：CNY"
+							},							
+							{
+								"code": "payAmount",
+								"type": "Double",
+								"required": "是",
+								"desc": "支付的金额，浮点数精确到2位小数，例如：1.23"
+							},	
+							{
+								"code": "payQuantity",
+								"type": "Double",
+								"required": "是",
+								"desc": "支付的数量，精确到小数点后2位，例如：3.45"
+							},	
+							{
+								"code": "payTitle",
+								"type": "String",
+								"required": "是",
+								"desc": "支付的标题"
+							},	
+							{
+								"code": "payDesc",
+								"type": "String",
+								"required": "是",
+								"desc": "支付的描述"
+							},
+							{
+								"code": "payRemark",
+								"type": "String",
+								"required": "否",
+								"desc": "支付的备注"
+							},
+							{
+								"code": "buyUserCode",
+								"type": "String",
+								"required": "是",
+								"desc": "买方人的用户编码"
+							},	
+							{
+								"code": "buyUserName",
+								"type": "String",
+								"required": "是",
+								"desc": "买方人的名称"
+							},
+							{
+								"code": "sellUserCode",
+								"type": "String",
+								"required": "是",
+								"desc": "卖方人的用户编码"
+							},	
+							{
+								"code": "sellUserName",
+								"type": "String",
+								"required": "是",
+								"desc": "卖方人的名称"
+							},
+							{
+								"code": "tradeTime",
+								"type": "Number",
+								"required": "是",
+								"desc": "当前交易的时间，时间戳，精确到秒"
+							},	
+							{
+								"code": "addData",
+								"type": "Object",
+								"required": "否",
+								"desc": "支付的附加信息，由用户自定义"
+							},																																																																																	
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "Object",
+								"desc": "服务器返回的数据"
+							}, {
+								"code": "statusCode",
+								"type": "Number",
+								"desc": "服务器响应应答码"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.requestPayment({\r\n\tpayWay:'wechat',\r\n\tpayCurrency:'CNY',\r\n\tpayAmount:1.23,\r\n\tpayQuantity:3.45,\r\n\tpayTitle:'购买的标题',\r\n\tpayDesc:'购买的描述',\r\n\tpayRemark:'购买的备注',\r\n\tbuyUserCode:'buycode123',\r\n\tbuyUserName:'购买方名称',\r\n\tsellUserCode:'sellcode456',\r\n\tsellUserName:'卖方名称',\r\n\ttradeTime:1513069748,\r\n\taddData:{'aaa':'bbb'},\r\n\tsuccess:function(res){\r\n\t\talert(res.data);\r\n\t\talert(res.statusCode);\r\n\t},fail:function(res){\r\n\t\talert(res.code);\r\n\t\talert(res.message);\r\n\t},complete:function(){\r\n\t\talert('complete')\r\n\t}});"
+			}
+		]
+	}, {
+		"code": "share",
+		"name": "分享",
+		"detail": [
+			{
+				"code": "shareInfo",
+				"name": "发起信息分享",
+				"interfaceName": "water.shareInfo(Object)",
+				"interfaceDesc": "发起信息分享",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "shareMode",
+								"type": "Array",
+								"required": "是",
+								"desc": "传值为一个或多个，数量为:['WECHAT_TIMELINE'//微信朋友圈,'WECHAT_MESSAGE'//微信消息,'SINA_WEIBO'//新浪微博,'QQ_MESSAGE'//QQ消息,'QQ_ZONE'//QQ空间]"
+							},
+							{
+								"code": "shareTitle",
+								"type": "String",
+								"required": "是",
+								"desc": "分享的标题"
+							},	
+							{
+								"code": "shareDesc",
+								"type": "String",
+								"required": "是",
+								"desc": "分享的描述"
+							},	
+							{
+								"code": "shareImg",
+								"type": "String",
+								"required": "是",
+								"desc": "分享的图片"
+							},
+							{
+								"code": "shareLink",
+								"type": "String",
+								"required": "是",
+								"desc": "分享的链接"
+							},																																																																																														
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "Object",
+								"desc": "服务器返回的数据"
+							}, {
+								"code": "statusCode",
+								"type": "Number",
+								"desc": "服务器响应应答码"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.shareInfo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t\tconsole.log(res.statusCode);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}
+		]
+	}, {
+		"code": "media",
+		"name": "媒体信息",
+		"detail": [
+			{
+				"code": "scanCode",
+				"name": "扫码",
+				"interfaceName": "water.scanCode(Object)",
+				"interfaceDesc": "发起扫一扫功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [																																																																																												
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "扫码返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.scanCode({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "playVideo",
+				"name": "播放视频-点播",
+				"interfaceName": "water.playVideo(Object)",
+				"interfaceDesc": "播放视频功能-点播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "videoUrl",
+								"type": "String",
+								"required": "是",
+								"desc": "视屏播放地址"
+							},
+							{
+								"code": "coverPageUrl",
+								"type": "String",
+								"required": "是",
+								"desc": "封面页图片"
+							},	
+							{
+								"code": "fullScreenFlag",
+								"type": "Boolean",
+								"required": "是",
+								"desc": "是否全屏标识"
+							},	
+																																																																																																																						{
+								"code": "seek",
+								"type": "Number",
+								"required": "是",
+								"desc": "跳转到指定位置播放"
+							},
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode":"water.playVideo({\r\n\tvideoUrl:'https://www.zjtahcao.com/a.mp4',\r\n\tcoverPageUrl:'https://www.zjtachao.com/a.png',\r\n\tfullScreenFlag:true,\r\n\tseek:0,\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "pauseVideo",
+				"name": "暂停视频-点播",
+				"interfaceName": "water.pauseVideo(Object)",
+				"interfaceDesc": "暂停视频-点播功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.pauseVideo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "stopVideo",
+				"name": "停止视频-点播",
+				"interfaceName": "water.stopVideo(Object)",
+				"interfaceDesc": "停止视频-点播功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.stopVideo({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "getVideoPlayerState",
+				"name": "获得视频播放信息-点播",
+				"interfaceName": "water.getVideoPlayerState(Object)",
+				"interfaceDesc": "获得视频播放信息-点播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "status",
+								"type": "Number",
+								"desc": "1:播放中 0:暂停中 2:没有视频在播放"
+							},{
+								"code": "duration",
+								"type": "Number",
+								"desc": "当前视频的总时长，单位：秒"
+							},{
+								"code": "currentPosition",
+								"type": "Number",
+								"desc": "当前视频播放的位置，单位：秒"
+							},{
+								"code": "videoUrl",
+								"type": "String",
+								"desc": "当前播放视频的url"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getVideoPlayerState({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.status);\r\n\t\tconsole.log(res.duration);\r\n\t\tconsole.log(res.currentPosition);\r\n\t\tconsole.log(res.videoUrl);;\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "playLive",
+				"name": "播放视频-直播",
+				"interfaceName": "water.playLive(Object)",
+				"interfaceDesc": "播放视频功能-直播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "videoUrl",
+								"type": "String",
+								"required": "是",
+								"desc": "视屏播放地址"
+							},
+							{
+								"code": "coverPageUrl",
+								"type": "String",
+								"required": "是",
+								"desc": "封面页图片"
+							},	
+							{
+								"code": "fullScreenFlag",
+								"type": "Boolean",
+								"required": "是",
+								"desc": "是否全屏标识"
+							},
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode":"water.playLive({\r\n\tvideoUrl:'https://www.zjtahcao.com/a.m3u8',\r\n\tcoverPageUrl:'https://www.zjtachao.com/a.png',\r\n\tfullScreenFlag:true,\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "pauseLive",
+				"name": "暂停视频-直播",
+				"interfaceName": "water.pauseLive(Object)",
+				"interfaceDesc": "暂停视频功能-直播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.pauseLive({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "stopLive",
+				"name": "停止视频-直播",
+				"interfaceName": "water.stopLive(Object)",
+				"interfaceDesc": "停止视频功能-直播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.stopLive({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "getLivePlayerState",
+				"name": "获得视频播放信息-直播",
+				"interfaceName": "water.getLivePlayerState(Object)",
+				"interfaceDesc": "获得视频播放信息-直播",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "status",
+								"type": "Number",
+								"desc": "1:播放中 0:暂停中 2:没有视频在播放"
+							},{
+								"code": "videoUrl",
+								"type": "String",
+								"desc": "当前播放视频的url"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getLivePlayerState({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.status);\r\n\t\tconsole.log(res.videoUrl);;\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "playAudio",
+				"name": "播放音频",
+				"interfaceName": "water.playAudio(Object)",
+				"interfaceDesc": "播放音频功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "audioUrl",
+								"type": "String",
+								"required": "是",
+								"desc": "音频播放地址"
+							},{
+								"code": "seek",
+								"type": "Number",
+								"required": "是",
+								"desc": "跳转到指定位置播放"
+							},
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode":"water.playAudio({\r\n\tvideoUrl:'https://www.zjtahcao.com/a.mp3',\r\n\tseek:0,\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "pauseAudio",
+				"name": "暂停音频",
+				"interfaceName": "water.pauseAudio(Object)",
+				"interfaceDesc": "暂停音频功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.pauseAudio({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "stopAudio",
+				"name": "停止音频",
+				"interfaceName": "water.stopAudio(Object)",
+				"interfaceDesc": "停止音频功能",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "data",
+								"type": "String",
+								"desc": "返回的结果数据"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.stopAudio({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.data);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "getAudioPlayerState",
+				"name": "获得音频播放信息",
+				"interfaceName": "water.getAudioPlayerState(Object)",
+				"interfaceDesc": "获得音频播放信息",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "status",
+								"type": "Number",
+								"desc": "1:播放中 0:暂停中 2:没有视频在播放"
+							},{
+								"code": "duration",
+								"type": "Number",
+								"desc": "当前视频的总时长，单位：秒"
+							},{
+								"code": "currentPosition",
+								"type": "Number",
+								"desc": "当前视频播放的位置，单位：秒"
+							},{
+								"code": "audioUrl",
+								"type": "String",
+								"desc": "当前播放音频的url"
+							}
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.getAudioPlayerState({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.status);\r\n\t\tconsole.log(res.duration);\r\n\t\tconsole.log(res.currentPosition);\r\n\t\tconsole.log(res.audioUrl);;\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			},{
+				"code": "chooseImage",
+				"name": "选择图片",
+				"interfaceName": "water.chooseImage(Object)",
+				"interfaceDesc": "选择图片",
+				"requestParam": [
+					{
+						"code": "Object",
+						"name": "Object参数说明",
+						"param": [
+							{
+								"code": "count",
+								"type": "Number",
+								"required": "是",
+								"desc": "最多可选择的图片数量，最多选9张"
+							},	
+							{
+								"code": "sourceType",
+								"type": "Array",
+								"required": "是",
+								"desc": "album 从相册选图，camera 使用相机 , both两者都有"
+							},												
+							{
+								"code": "success",
+								"type": "Function",
+								"required": "是",
+								"desc": "接口调用成功的回调"
+							}, {
+								"code": "fail",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败的回调"
+							}, {
+								"code": "complete",
+								"type": "Function",
+								"required": "否",
+								"desc": "接口调用失败或成功都会执行"
+							}
+						]
+					}
+				],
+				"responseParam": [
+					{
+						"code": "success",
+						"name": "success参数说明",
+						"param": [
+							{
+								"code": "filePaths",
+								"type": "Array",
+								"desc": "文件列表"
+							}
+						]
+					}, {
+						"code": "filePaths",
+						"name": "filePaths参数说明",
+						"param": [
+							{
+								"code": "path",
+								"type": "String",
+								"desc": "文件路径"
+							},
+							{
+								"code": "size",
+								"type": "Number",
+								"desc": "文件大小，单位：Byte"
+							}							
+						]
+					}, {
+						"code": "fail",
+						"name": "fail参数说明",
+						"param": [
+							{
+								"code": "code",
+								"type": "Number",
+								"desc": "错误编码，详情请查看通用错误编码"
+							}, {
+								"code": "message",
+								"type": "String",
+								"desc": "错误信息，具体的错误描述"
+							}
+						]
+					}, {
+						"code": "complete",
+						"name": "complete参数说明",
+						"desc": "暂无参数只用来标识此方法完成调用"
+					}
+				],
+				"expCode": "water.chooseImage({\r\n\tsuccess:function(res){\r\n\t\tconsole.log(res.filePaths);\r\n\t},fail:function(res){\r\n\t\tconsole.log(res.code);\r\n\t\tconsole.log(res.message);\r\n\t},complete:function(){\r\n\t\tconsole.log(\"complete\");\r\n\t}\r\n});"
+			}
+		]
+	}	
+	
+]

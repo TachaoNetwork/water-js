@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>踏潮(water)_JS-SDK Demo</title>
+		<script type="text/javascript" src="water_util.js" ></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<style>
+			pre{
+			  tab-size:3;
+			}	
+			.water-result{
+				margin: 5rem 0 0 0;
+			}		
+			.water-content{
+				font-size: 2.2rem;
+			}
+			.water-navigate{
+				display: none;
+				position: fixed;
+				z-index: 9999;
+				top: 6rem;	
+				background-color: #E8E8E8;	
+				width: 100%;		
+			}
+			.water-switch{
+				font-size: 2.2rem;
+				background-color: #E8E8E8;	
+				width: 100%;		
+				height: 5rem;
+				position: fixed;
+				z-index: 9999;
+				top: 0;
+			}
+			.water-base-item{
+				border-bottom: 1px solid #BEBEBE;
+			}
+			.water-base-item a{
+				color: #000000;
+    				text-decoration: none;
+			}
+			.water-base-item-text{
+				margin: 1.8rem 0 1.8rem 3rem;
+			}
+			.water-interface{
+				margin: 5rem 0 0 0;
+			}
+			.water-interface-content{
+				margin: 0 1.8rem 0 3rem;
+			}
+			.water-interface-item{
+				font-size: 2rem;
+				color: #8d8c92;
+			}
+			.water-interface-btn-or{
+				margin: 2rem 0 0 0;
+			}
+			.water-interface-btn{
+				width: 95%;
+				height: 6rem;
+				color: #FFFFFF;
+				background-color: #3a8dc7;
+				font-size: 2.5rem;
+				text-align: center;
+				border-radius: 25px;
+			}
+			.water-interface-param{
+				margin: 2.5rem 0 0 0;
+			}
+			.water-interface-table{
+				text-align: center;
+				border-collapse: collapse;
+			}
+			.water-interface-table tr{
+				border-bottom: 1px solid #BEBEBE;
+				height: 5rem;
+			}
+			.water-interface-exp{
+				background-color: #E8E8E8;
+			}
+			.water-interface-split{
+				margin:10rem 0 0 0;
+			}
+		</style>
+		<script>
+			
+			function showInfo(){
+				alert('请在踏潮APP架构中打开');
+				var ua = navigator.userAgent;
+				alert(ua);
+			}
+			 
+			$(document).ready(function(){
+				var uaFlag = false;
+				var ua = navigator.userAgent;
+  				if(ua.indexOf('water/')>=0){
+  					uaFlag = true;
+  				}
+				
+				//读取json文件
+				var data = null;
+				$.ajaxSettings.async = false;
+				$.getJSON( "water_test.json", function(res) {
+					var html = "";
+					for(var base in res){
+						html+="<div class='water-interface-content'>";
+						html+="<div id='"+res[base].code+"'>"+res[base].name+"</div>";
+						for(var interItem in res[base].detail){
+							html+="<div class='water-interface-item'>";
+							html+="<div class=''>接口名称：<b>"+res[base].detail[interItem].interfaceName+"</b></div>";
+							html+="<div class=''>接口描述："+res[base].detail[interItem].interfaceDesc+"</div>";
+							html+="<div class='water-interface-btn-or'><input type='button' class='water-interface-btn' id='"+res[base].detail[interItem].code+"' value='"+res[base].detail[interItem].code+"' /></div>";
+							//requestParam
+							for(var reqParamItem in res[base].detail[interItem].requestParam){
+								html+="<div>";
+								html+="<div class='water-interface-param'>"+res[base].detail[interItem].requestParam[reqParamItem].name+"参数说明</div>";
+								html+="<div>";
+								html+="<table class='water-interface-table'>";
+								html+="<tr><th width='20%'>参数名</th><th width='20%'>类型</th><th width='10%'>必填</th><th>说明</th></tr>";
+								for(var paramDetail in res[base].detail[interItem].requestParam[reqParamItem].param){
+									html+= "<tr><td>"+res[base].detail[interItem].requestParam[reqParamItem].param[paramDetail].code+"</td><td>"+res[base].detail[interItem].requestParam[reqParamItem].param[paramDetail].type+"</td><td>"+res[base].detail[interItem].requestParam[reqParamItem].param[paramDetail].required+"</td><td>"+res[base].detail[interItem].requestParam[reqParamItem].param[paramDetail].desc+"</td></tr>";
+								}
+								html+="</table>";
+								html+="</div>";
+								html+="</div>";
+							}
+							
+							//responseParam
+							for(var rpsParamItem in res[base].detail[interItem].responseParam){
+								html+="<div>";
+								html+="<div class='water-interface-param'>"+res[base].detail[interItem].responseParam[rpsParamItem].name+"</div>";
+								html+="<div>";
+								html+="<table class='water-interface-table'>";
+								//console.log(res[base].detail[interItem].responseParam[rpsParamItem].desc)
+								var paramDesc = res[base].detail[interItem].responseParam[rpsParamItem].desc;								
+								if(paramDesc != undefined && paramDesc != ""){
+									html+="<tr><td width='100%'>"+paramDesc+"</td></tr>";
+								}else{
+									html+="<tr><th width='25%'>参数名</th><th width='25%'>类型</th><th>说明</th></tr>";
+									for(var paramDetail in res[base].detail[interItem].responseParam[rpsParamItem].param){
+										html+="<tr><td>"+res[base].detail[interItem].responseParam[rpsParamItem].param[paramDetail].code+"</td><td>"+res[base].detail[interItem].responseParam[rpsParamItem].param[paramDetail].type+"</td><td>"+res[base].detail[interItem].responseParam[rpsParamItem].param[paramDetail].desc+"</td></tr>";
+									}								
+								}
+								html+="</table>"
+								html+="</div>";
+								html+="</div>";
+							}
+							//示例代码
+							html+="<div>";
+							html+="<div class='water-interface-param'>示例代码</div>";
+							html+="<div class='water-interface-exp'>";
+							html+="<pre>"
+							html+= res[base].detail[interItem].expCode;
+							html+="</pre>";
+							html+="</div>";
+							html+="</div>";
+							
+							html+="";
+							html+="</div>";
+							html+="<div class='water-interface-split'></div>"
+						}
+						html+="<div class='water-interface-split'></div>"
+						html+="</div>";						
+					}
+					$(".water-interface").html(html);	
+					
+					//初始化导航
+					var menuHtml="";
+					for(var base in res){
+						menuHtml+="<div class='water-base-item'>";
+						menuHtml+="<div class='water-base-item-text'>"
+						menuHtml+="<b>"+res[base].name+"</b><br/>";
+						for(var detailItem in res[base].detail){
+							menuHtml+="<a href='#"+res[base].detail[detailItem].code+"'>"+res[base].detail[detailItem].name+"</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+						}
+						menuHtml+="</div>";
+						menuHtml+="</div>";
+					}
+					$(".water-navigate").html(menuHtml);	
+				});	
+				//页面点击隐藏导航
+				$(".water-content").click(function(){
+					$(".water-navigate").hide(); 
+					$(".fa-navicon").css('color','#000000');					
+				});
+				//点击上方菜单
+				$("#navigate-oper").click(function(){
+					if($(".water-navigate").is(":hidden")){
+						$(".water-navigate").show(); 
+						$(".fa-navicon").css('color','#0099FF');
+					}else{
+						$(".water-navigate").hide(); 
+						$(".fa-navicon").css('color','#000000');
+					}
+  				});
+  				
+  				
+  				//点击检查App版本
+  				$("#checkAppVersion").click(function(){
+  					if(uaFlag){
+						water.checkAppVersion({
+	  						success:function(res){
+	  							alert(res.currentAppVersion);
+	  							alert(res.currentJsVersion);
+	  							alert(res.lastestAppVersion);
+	  							alert(res.lastestJsVersion);
+	  						},fail:function(res){
+	  							alert(res.code);
+	  							alert(res.message);
+	  						}
+	  					});
+	  					
+  					}else{
+  						showInfo();
+  					}
+  				});
+  				//点击请求数据
+  				$("#request").click(function(){
+  					if(uaFlag){
+					water.request({
+						url:'https://www.zjtachao.com/water/test',
+						method:'POST',
+						data:{'code':'aaaa'},
+						header:{'Cookie':'waterTOKEN=123456'},
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+					}else{
+  						showInfo();
+  					}
+  				});  
+  				//点击上传文件
+  				$("#uploadFile").click(function(){
+  					if(uaFlag){
+					water.uploadFile({
+						url:'https://www.zjtachao.com/water/test',
+						filePath:'/tmp/a.png',
+						header:{'Cookie':'waterTOKEN=123456'},
+  						success:function(res){
+  							alert(res.data);
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  				
+  				
+  				//点击获得应用信息
+  				$("#getAppInfo").click(function(){
+  					if(uaFlag){
+					water.getAppInfo({
+  						success:function(res){
+  							alert(res.appCnName);
+  							alert(res.appEnName);
+  							alert(res.appVersion);
+  							alert(res.appLogo);
+  							alert(res.jsVersion);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  
+  				
+  				//点击获得用户信息
+  				$("#getUserInfo").click(function(){
+  					if(uaFlag){
+					water.getUserInfo({
+  						success:function(res){
+  							alert(res.userId);
+  							alert(res.userCode);
+  							alert(res.userName);
+  							alert(res.userImg);
+  							alert(res.userToken);
+  							alert(res.userLoginTime);
+  							alert(res.userLoginType);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});
+  				//获得位置信息
+				$("#getLocationInfo").click(function(){
+					if(uaFlag){
+					water.getLocationInfo({
+  						success:function(res){
+  							alert(res.latitude);
+  							alert(res.longitude);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});
+  				//获得网络状态
+				$("#getNetworkType").click(function(){
+					if(uaFlag){
+					water.getNetworkType({
+  						success:function(res){
+  							alert(res.networkType);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});
+  				//获得设备信息
+				$("#getDeviceInfo").click(function(){
+					if(uaFlag){
+					water.getDeviceInfo({
+  						success:function(res){
+  							alert(res.osType);
+  							alert(res.osVersion);
+  							alert(res.screenHeight);
+  							alert(res.screenWidth);
+  							alert(res.deviceId);
+  							alert(res.waterId);
+  							alert(res.brand);
+  							alert(res.model);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});
+  				
+  				//发起支付
+				$("#requestPayment").click(function(){
+					if(uaFlag){
+					water.requestPayment({
+						payWay:'wechat',
+						payCurrency:'CNY',
+						payAmount:1.23,
+						payQuantity:3.45,
+						payTitle:'购买的标题',
+						payDesc:'购买的描述',
+						payRemark:'购买的备注',
+						buyUserCode:'buycode123',
+						buyUserName:'购买方名称',
+						sellUserCode:'sellcode456',
+						sellUserName:'卖方名称',
+						tradeTime:1513069748,
+						addData:{'aaa':'bbb'},
+						
+  						success:function(res){
+  							alert(res.data);
+  							alert(res.statusCode);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  				
+  				//分享信息
+				$("#shareInfo").click(function(){
+					if(uaFlag){
+					water.shareInfo({
+						shareMode:['WECHAT_TIMELINE','WECHAT_MESSAGE','SINA_WEIBO'],
+						shareTitle:'分享标题',
+						shareDesc:'分享描述',
+						shareImg:'https://www.zjtachao.com/a.png',
+						shareLink:'https://www.zjtachao.com/a.htm',
+  						success:function(res){
+  							alert(res.data);
+  							alert(res.statusCode);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				}); 
+  				//扫码信息
+				$("#scanCode").click(function(){
+					if(uaFlag){
+					water.scanCode({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				}); 
+  				//播放视频
+				$("#playVideo").click(function(){
+					if(uaFlag){
+					water.playVideo({
+						videoUrl:'https://www.zjtahcao.com/a.mp4',
+						coverPageUrl:'https://www.zjtachao.com/a.png',
+						fullScreenFlag:true,
+						seek:0,
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   
+  				//暂停视频
+				$("#pauseVideo").click(function(){
+					if(uaFlag){
+					water.pauseVideo({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   	
+  				//停止视频
+				$("#stopVideo").click(function(){
+					if(uaFlag){
+					water.stopVideo({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   				
+  				//播放视频的状态
+				$("#getVideoPlayerState").click(function(){
+					if(uaFlag){
+					water.getVideoPlayerState({
+  						success:function(res){
+  							alert(res.status);
+  							alert(res.duration);
+  							alert(res.currentPosition);
+  							alert(res.videoUrl);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  
+  				
+  				//播放视频
+				$("#playLive").click(function(){
+					if(uaFlag){
+					water.playLive({
+						videoUrl:'https://www.zjtahcao.com/a.mp4',
+						coverPageUrl:'https://www.zjtachao.com/a.png',
+						fullScreenFlag:true,
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   
+  				//暂停视频
+				$("#pauseLive").click(function(){
+					if(uaFlag){
+					water.pauseLive({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   	
+  				//停止视频
+				$("#stopLive").click(function(){
+					if(uaFlag){
+					water.stopLive({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   				
+  				//播放视频的状态
+				$("#getLivePlayerState").click(function(){
+					if(uaFlag){
+					water.getLivePlayerState({
+  						success:function(res){
+  							alert(res.status);
+  							alert(res.videoUrl);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  				
+  				
+  				//播放音频
+				$("#playAudio").click(function(){
+					if(uaFlag){
+					water.playAudio({
+						videoUrl:'https://www.zjtahcao.com/a.mp3',
+						seek:0,
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   
+  				//暂停音频
+				$("#pauseAudio").click(function(){
+					if(uaFlag){
+					water.pauseAudio({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   	
+  				//停止音频
+				$("#stopAudio").click(function(){
+					if(uaFlag){
+					water.stopAudio({
+  						success:function(res){
+  							alert(res.data);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   				
+  				//播放音频的状态
+				$("#getAudioPlayerState").click(function(){
+					if(uaFlag){
+					water.getAudioPlayerState({
+  						success:function(res){
+  							alert(res.status);
+  							alert(res.duration);
+  							alert(res.currentPosition);
+  							alert(res.audioUrl);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							alert("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});   				
+				//选择文件
+				$("#chooseImage").click(function(){
+					if(uaFlag){
+					water.chooseImage({
+  						success:function(res){
+  							alert(res.filePaths);
+  						},fail:function(res){
+  							alert(res.code);
+  							alert(res.message);
+  						},complete:function(){
+  							console.log("complete")
+  						}
+  					});
+  					}else{
+  						showInfo();
+  					}  					
+  				});  				
+  				
+			});
+		</script>
+	</head>
+	<body>
+		<div class="water-content">
+			<div class="water-navigate"></div>
+			<div class="water-interface"></div>
+		</div>
+		<div id='navigate-oper' class="water-switch">
+			<i class="fa fa-navicon fa-2x"></i>
+		</div>		
+	</body>
+</html>
