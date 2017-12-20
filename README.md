@@ -45,3 +45,46 @@
     [func callWithArguments:@[@"这里是参数"]];
 }
 ```
+#### step5
+JS调用
+```
+    water.waterCall({
+        data:{'code':'aaaa'},
+        success:function(res){
+            alert(res);
+        },fail:function(res){
+            alert(res);
+        },complete:function(){
+            alert("complete")
+        }
+    });
+```
+## Android
+### Android 采用WebViewJavascriptBridge作为基础承载，数据传输采用JSON
+#### step1
+需要打开的页面引入 water_util.js 也可自行扩展所需数据的接口
+#### step2
+订阅需要执行的方法名并接收参数
+```
+     //必须和js同名函数，注册具体执行函数，类似java实现类
+     webView.registerHandler("waterCall", new BridgeHandler() {
+      @Override
+      public void handler(String data, CallBackFunction function) {
+          function.onCallBack( data + “java”);
+            }
+      });
+```
+#### step3
+JS调用
+```
+    water.waterCall({
+        data:{'code':'aaaa'},
+        success:function(res){
+            alert(res);
+        },fail:function(res){
+            alert(res);
+        },complete:function(){
+            alert("complete")
+        }
+    });
+```
